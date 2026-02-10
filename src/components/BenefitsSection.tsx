@@ -30,8 +30,11 @@ const BenefitsSection = () => {
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground">
           ¿Por qué elegirnos?
         </h2>
-        <p className="text-center text-muted-foreground mb-12 max-w-xl mx-auto">
-          Todo lo que necesitas para empezar a generar ingresos como creadora digital.
+        <p className="text-center text-muted-foreground mb-2 max-w-xl mx-auto">
+          Conectamos creadoras con partners de plataformas de contenido para adultos a nivel internacional.
+        </p>
+        <p className="text-center text-xs text-muted-foreground/70 mb-12 max-w-lg mx-auto">
+          Servicio exclusivo para mayores de 18 años. Gestión Pro Latam actúa únicamente como intermediario en la captación y derivación de leads, sin responsabilidad sobre el contenido generado.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
