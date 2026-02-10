@@ -26,6 +26,9 @@ const LegalFooter = () => {
           <p className="mt-1">
             Las cifras mostradas son estimaciones y no garantizan ingresos específicos.
           </p>
+          <p className="mt-2">
+            Soporte: <a href="mailto:agencialeads@protonmail.com" className="text-primary hover:underline">agencialeads@protonmail.com</a>
+          </p>
         </div>
       </div>
     </footer>
