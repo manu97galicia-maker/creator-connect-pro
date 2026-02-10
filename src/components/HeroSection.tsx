@@ -1,26 +1,80 @@
 import { useState, useEffect } from "react";
-import { ArrowDown, Users, AlertTriangle, Calculator } from "lucide-react";
+import { ArrowDown, Users, AlertTriangle, Calculator, Lock } from "lucide-react";
 
-const FAKE_NAMES = [
-  "Yaneth J.", "María G.", "Camila R.", "Valentina S.", "Sofía M.",
-  "Isabella P.", "Luciana T.", "Daniela V.", "Andrea F.", "Carolina H.",
-  "Gabriela L.", "Fernanda Q.", "Paola N.", "Natalia B.", "Alejandra D.",
-  "Laura C.", "Diana K.", "Mariana E.", "Paula A.", "Catalina O.",
-  "Juliana W.", "Adriana Z.", "Mónica R.", "Vanessa U.", "Tatiana I.",
-];
+// --- COMPONENTES AUXILIARES ---
 
-const COUNTRIES = [
-  "Colombia", "México", "Argentina", "Perú", "Chile",
-  "Ecuador", "Venezuela", "Bolivia", "Paraguay", "Uruguay",
-  "Costa Rica", "Panamá", "Rep. Dominicana", "Guatemala", "Honduras",
-];
+const AgeGate = ({ onConfirm }: { onConfirm: () => void }) => {
+  return (
+    <div className="fixed inset-0 bg-black flex items-center justify-center z-[9999] p-4 backdrop-blur-md">
+      <div className="bg-gray-900 p-8 rounded-2xl text-center max-w-md border-2 border-primary shadow-2xl">
+        <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Lock className="w-8 h-8 text-primary" />
+        </div>
+        <h2 className="text-3xl font-bold text-white mb-4">CONTENIDO +18</h2>
+        <p className="text-gray-300 mb-6">
+          Este sitio contiene material para adultos. Al ingresar, confirmas que tienes al menos 18 años y aceptas nuestra Política de Privacidad.
+        </p>
+        <button 
+          onClick={onConfirm}
+          className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-bold hover:opacity-90 w-full transition-all uppercase tracking-wider"
+        >
+          SÍ, SOY MAYOR DE EDAD
+        </button>
+        <button 
+          onClick={() => window.location.href = "https://google.com"} 
+          className="mt-4 text-gray-500 underline text-sm block w-full"
+        >
+          Salir / Soy menor
+        </button>
+      </div>
+    </div>
+  );
+};
 
+const LeadForm = () => {
+  const stripePaymentLink = "TU_LINK_DE_STRIPE_AQUI"; // REEMPLAZA ESTO
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Redirección directa al pago
+    window.location.href = stripePaymentLink;
+  };
+
+  return (
+    <div id="registro" className="bg-card border border-border p-6 rounded-2xl shadow-xl">
+      <h3 className="text-xl font-bold mb-4 text-center">Registro de Nueva Plaza</h3>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <input 
+          name="email" 
+          type="email" 
+          placeholder="Tu correo electrónico..." 
+          required 
+          className="p-3 bg-muted border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+        />
+        <div className="flex items-start gap-2">
+          <input type="checkbox" required className="mt-1" id="terms" />
+          <label htmlFor="terms" className="text-[10px] text-muted-foreground leading-tight">
+            Confirmo que soy mayor de 18 años y acepto que mi correo sea compartido con socios de streaming para procesar mi acceso.
+          </label>
+        </div>
+        <button className="bg-primary text-primary-foreground font-bold py-4 rounded-xl hover:opacity-90 transition-all shadow-lg shadow-primary/20">
+          RESERVAR PLAZA Y PAGAR
+        </button>
+      </form>
+    </div>
+  );
+};
+
+// --- DATOS Y CALCULADORA ---
+
+const FAKE_NAMES = ["Yaneth J.", "María G.", "Camila R.", "Valentina S.", "Sofía M.", "Isabella P.", "Luciana T.", "Daniela V.", "Andrea F.", "Carolina H."];
+const COUNTRIES = ["Colombia", "México", "Argentina", "Perú", "Chile", "Ecuador"];
 const HOURLY_RATE = 20;
 
 const MiniCalculator = () => {
   const [hours, setHours] = useState(4);
   const daily = hours * HOURLY_RATE;
-  const weekly = daily * 4; // L-J
+  const weekly = daily * 4;
   const monthly = weekly * 4;
 
   return (
@@ -28,24 +82,17 @@ const MiniCalculator = () => {
       <div className="bg-card border border-border rounded-2xl p-6">
         <div className="flex items-center justify-center gap-2 mb-4">
           <Calculator className="w-5 h-5 text-primary" />
-          <h3 className="text-lg font-semibold text-foreground">Calculadora de Ganancias</h3>
+          <h3 className="text-lg font-semibold">Calculadora de Ganancias</h3>
         </div>
         <div className="mb-5">
           <label className="block text-sm text-muted-foreground mb-2">
             Horas por día: <span className="text-primary font-bold">{hours}h</span>
           </label>
           <input
-            type="range"
-            min="1"
-            max="8"
-            value={hours}
+            type="range" min="1" max="8" value={hours}
             onChange={(e) => setHours(Number(e.target.value))}
             className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
           />
-          <div className="flex justify-between text-xs text-muted-foreground mt-1">
-            <span>1h</span>
-            <span>8h</span>
-          </div>
         </div>
         <div className="grid grid-cols-3 gap-3 text-center">
           <div className="bg-muted rounded-xl p-3">
@@ -53,135 +100,95 @@ const MiniCalculator = () => {
             <p className="text-xl font-bold text-primary">${daily}</p>
           </div>
           <div className="bg-muted rounded-xl p-3">
-            <p className="text-[10px] text-muted-foreground mb-1">Semanal (L-J)</p>
+            <p className="text-[10px] text-muted-foreground mb-1">Semanal</p>
             <p className="text-xl font-bold text-primary">${weekly}</p>
           </div>
           <div className="bg-muted rounded-xl p-3">
             <p className="text-[10px] text-muted-foreground mb-1">Mensual</p>
-            <p className="text-xl font-bold text-foreground">${monthly}</p>
+            <p className="text-xl font-bold">${monthly}</p>
           </div>
         </div>
-        <p className="text-[10px] text-muted-foreground text-center mt-3 leading-relaxed">
-          Estas cifras son orientativas y <strong>no constituyen una promesa ni garantía de resultados financieros</strong>. 
-          Las ganancias reales dependen del esfuerzo, dedicación y condiciones de cada plataforma.
-        </p>
       </div>
     </div>
   );
 };
 
+// --- COMPONENTE PRINCIPAL ---
+
 const HeroSection = () => {
+  const [isAdult, setIsAdult] = useState(false);
   const [spotsLeft, setSpotsLeft] = useState(200);
   const [notification, setNotification] = useState<{ name: string; country: string } | null>(null);
   const [showNotification, setShowNotification] = useState(false);
 
   useEffect(() => {
+    const consent = localStorage.getItem('age-consent');
+    if (consent) setIsAdult(true);
+
     const interval = setInterval(() => {
       setSpotsLeft((prev) => {
         if (prev <= 1) return 1;
-        const newSpots = prev - 1;
-
-        // Show notification
         const randomName = FAKE_NAMES[Math.floor(Math.random() * FAKE_NAMES.length)];
         const randomCountry = COUNTRIES[Math.floor(Math.random() * COUNTRIES.length)];
         setNotification({ name: randomName, country: randomCountry });
         setShowNotification(true);
-
         setTimeout(() => setShowNotification(false), 4000);
-
-        return newSpots;
+        return prev - 1;
       });
     }, 15000);
 
-    // Show first notification after 5 seconds
-    const firstTimeout = setTimeout(() => {
-      setSpotsLeft((prev) => {
-        const newSpots = prev - 1;
-        const randomName = FAKE_NAMES[Math.floor(Math.random() * FAKE_NAMES.length)];
-        const randomCountry = COUNTRIES[Math.floor(Math.random() * COUNTRIES.length)];
-        setNotification({ name: randomName, country: randomCountry });
-        setShowNotification(true);
-        setTimeout(() => setShowNotification(false), 4000);
-        return newSpots;
-      });
-    }, 5000);
-
-    return () => {
-      clearInterval(interval);
-      clearTimeout(firstTimeout);
-    };
+    return () => clearInterval(interval);
   }, []);
+
+  const handleAgeConfirm = () => {
+    localStorage.setItem('age-consent', 'true');
+    setIsAdult(true);
+  };
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-12">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted" />
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary/10 rounded-full blur-3xl" />
+      {!isAdult && <AgeGate onConfirm={handleAgeConfirm} />}
 
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted" />
+      
       <div className="relative z-10 w-full px-4 max-w-4xl mx-auto">
-        {/* Urgency banner */}
         <div className="animate-fade-up text-center mb-8">
           <div className="inline-flex items-center gap-2 bg-destructive/10 border border-destructive/30 text-destructive px-5 py-2.5 rounded-full text-sm font-semibold mb-6">
-            <AlertTriangle className="w-4 h-4" />
-            ⚡ Alta demanda — Plazas limitadas
+            <AlertTriangle className="w-4 h-4" /> ⚡ Alta demanda — Plazas limitadas
           </div>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight">
             <span className="text-foreground">Buscamos a las</span>{" "}
             <span className="text-primary">200 primeras</span>
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground mb-2 max-w-2xl mx-auto">
-            creadoras digitales en Latinoamérica debido a la alta demanda
-          </p>
 
-          {/* Spots counter */}
           <div className="flex items-center justify-center gap-3 my-6">
             <Users className="w-6 h-6 text-primary" />
-            <span className="text-2xl md:text-3xl font-bold text-foreground">
-              Quedan{" "}
-              <span className={`text-primary ${spotsLeft <= 20 ? "text-destructive" : ""}`}>
-                {spotsLeft}
-              </span>{" "}
-              plazas en tu país
+            <span className="text-2xl md:text-3xl font-bold">
+              Quedan <span className="text-destructive">{spotsLeft}</span> plazas
             </span>
           </div>
 
-          <p className="text-base text-muted-foreground mb-8 max-w-xl mx-auto">
-            Trabajando de lunes a jueves puedes ganar hasta <span className="text-primary font-semibold">$20 USD/hora</span>
-          </p>
-
-          <a
-            href="#beneficios"
-            className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-full font-semibold text-lg hover:opacity-90 transition-opacity animate-pulse-glow"
-          >
-            Quiero mi plaza
-            <ArrowDown className="w-5 h-5" />
-          </a>
-        </div>
-
-        {/* Interactive earnings calculator */}
-        <MiniCalculator />
-      </div>
-
-      {/* Floating notification */}
-      <div
-        className={`fixed bottom-6 left-4 right-4 md:left-auto md:right-6 md:w-80 z-50 transition-all duration-500 ${
-          showNotification ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0 pointer-events-none"
-        }`}
-      >
-        <div className="bg-card border border-primary/30 rounded-xl p-4 shadow-lg shadow-primary/10">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0">
-              <Users className="w-5 h-5 text-primary" />
-            </div>
+          <div className="grid md:grid-cols-2 gap-8 items-start mt-12">
             <div>
-              <p className="text-sm font-semibold text-foreground">
-                {notification?.name} de {notification?.country}
+              <p className="text-lg text-left text-muted-foreground mb-6">
+                Trabajando de lunes a jueves puedes ganar hasta <span className="text-primary font-semibold">$20 USD/hora</span> en nuestra plataforma de streaming.
               </p>
-              <p className="text-xs text-muted-foreground">se ha registrado hace un momento</p>
+              <MiniCalculator />
+            </div>
+            
+            <div className="sticky top-4">
+              <LeadForm />
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Notificación flotante */}
+      <div className={`fixed bottom-6 left-4 right-4 md:left-auto md:right-6 md:w-80 z-50 transition-all duration-500 ${showNotification ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
+        <div className="bg-card border border-primary/30 rounded-xl p-4 shadow-lg">
+          <p className="text-sm font-semibold">{notification?.name} de {notification?.country}</p>
+          <p className="text-xs text-muted-foreground">se ha registrado hace un momento</p>
         </div>
       </div>
     </section>
