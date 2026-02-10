@@ -71,7 +71,7 @@ const MiniCalculator = () => {
 };
 
 const HeroSection = () => {
-  const [spotsLeft, setSpotsLeft] = useState(100);
+  const [spotsLeft, setSpotsLeft] = useState(200);
   const [notification, setNotification] = useState<{ name: string; country: string } | null>(null);
   const [showNotification, setShowNotification] = useState(false);
 
@@ -129,7 +129,7 @@ const HeroSection = () => {
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight">
             <span className="text-foreground">Buscamos a las</span>{" "}
-            <span className="text-primary">100 primeras</span>
+            <span className="text-primary">200 primeras</span>
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground mb-2 max-w-2xl mx-auto">
             creadoras digitales en Latinoamérica debido a la alta demanda
