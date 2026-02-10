@@ -3,23 +3,23 @@ import { Globe, DollarSign, Users, Sparkles } from "lucide-react";
 const benefits = [
   {
     icon: Globe,
-    title: "Acceso Internacional",
-    description: "Te registramos en las mejores plataformas de contenido a nivel mundial.",
+    title: "Captación de Leads",
+    description: "Captamos tu perfil y lo conectamos con partners internacionales para agilizar tu acceso a plataformas globales.",
   },
   {
     icon: DollarSign,
     title: "Cobros en Dólares",
-    description: "Recibe tus pagos en USD directamente, sin complicaciones bancarias.",
+    description: "Facilitamos la conexión con métodos de pago en USD a través de nuestros partners.",
   },
   {
     icon: Users,
-    title: "Comunidad Exclusiva",
-    description: "Forma parte de una red de creadoras que se apoyan mutuamente.",
+    title: "Red de Partners",
+    description: "Trabajamos con una red de colaboradores verificados que buscan perfiles como el tuyo.",
   },
   {
     icon: Sparkles,
-    title: "Acompañamiento Personalizado",
-    description: "Te guiamos paso a paso en todo el proceso de registro y verificación.",
+    title: "Gestión Administrativa",
+    description: "Nos encargamos de la intermediación técnica y administrativa entre tú y los partners interesados.",
   },
 ];
 
