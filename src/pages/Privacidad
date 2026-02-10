@@ -1,0 +1,10 @@
+// Dentro de tu App.tsx
+import Privacidad from './pages/Privacidad';
+import Terminos from './pages/Terminos';
+
+// ... dentro del componente principal
+<Routes>
+  <Route path="/" element={<HeroSection />} /> 
+  <Route path="/privacidad" element={<Privacidad />} />
+  <Route path="/terminos" element={<Terminos />} />
+</Routes>
