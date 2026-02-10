@@ -32,7 +32,7 @@ const AgeGate = ({ onConfirm }: { onConfirm: () => void }) => {
 };
 
 const LeadForm = () => {
-  const stripePaymentLink = "TU_LINK_DE_STRIPE_AQUI"; // REEMPLAZA ESTO
+  const stripePaymentLink = "https://buy.stripe.com/8x24gz8wS8k0d8h2mlfYY00"; // REEMPLAZA ESTO
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
