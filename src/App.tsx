@@ -5,6 +5,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+// Importamos las nuevas páginas legales
+import Privacidad from "./pages/Privacidad";
+import Terminos from "./pages/Terminos";
 
 const queryClient = new QueryClient();
 
@@ -15,7 +18,14 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
+          {/* Ruta principal */}
           <Route path="/" element={<Index />} />
+          
+          {/* Rutas legales para Google Ads y Stripe */}
+          <Route path="/privacidad" element={<Privacidad />} />
+          <Route path="/terminos" element={<Terminos />} />
+          
+          {/* Ruta para errores 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
