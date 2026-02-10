@@ -6,8 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 // Importamos las nuevas páginas legales
-import Privacidad from "./pages/Privacidad";
-import Terminos from "./pages/Terminos";
+import Privacidad from "./pages/privacidad";
+import Terminos from "./pages/terminos";
 
 const queryClient = new QueryClient();
 
