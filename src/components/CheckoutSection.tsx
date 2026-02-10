@@ -36,10 +36,17 @@ const CheckoutSection = () => {
 
           <a
             href="#"
-            className="inline-block w-full bg-primary text-primary-foreground py-4 rounded-xl font-semibold text-lg hover:opacity-90 transition-opacity"
+            className="inline-block w-full bg-primary text-primary-foreground py-4 rounded-xl font-semibold text-lg hover:opacity-90 transition-opacity mb-4"
           >
             Pagar y Verificarme
           </a>
+
+          <div className="border border-border rounded-xl p-4 bg-muted/50">
+            <p className="text-sm font-semibold text-foreground mb-1">Verificar contacto</p>
+            <p className="text-xs text-muted-foreground">
+              Te enviaremos un mail en menos de una semana para confirmar tu registro.
+            </p>
+          </div>
         </div>
       </div>
     </section>
