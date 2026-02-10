@@ -4,7 +4,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
-  base: "/creator-connect-pro/",
+  base: "/",  // 👈 Con dominio propio, usar "/"
   server: {
     host: "::",
     port: 8080,
