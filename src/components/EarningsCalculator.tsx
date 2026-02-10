@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Calculator } from "lucide-react";
 
-const HOURLY_RATE = 15;
+const HOURLY_RATE = 20;
 
 const EarningsCalculator = () => {
   const [hoursPerDay, setHoursPerDay] = useState(3);
@@ -21,7 +21,7 @@ const EarningsCalculator = () => {
             Calculadora de Ganancias
           </h2>
           <p className="text-muted-foreground">
-            Estima cuánto podrías ganar a una tarifa de <span className="text-primary font-semibold">${HOURLY_RATE} USD/hora</span>
+            Estima cuánto podrías ganar a una tarifa de <span className="text-primary font-semibold">${HOURLY_RATE} USD/hora</span> de lunes a jueves
           </p>
         </div>
 
