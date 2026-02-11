@@ -108,6 +108,9 @@ const MiniCalculator = () => {
             <p className="text-xl font-bold">${monthly}</p>
           </div>
         </div>
+        <p className="text-[10px] text-muted-foreground/70 text-center mt-4 leading-relaxed">
+          ⚠️ Estas cifras son meramente orientativas y no constituyen una promesa de ingresos. Los resultados reales pueden variar significativamente según múltiples factores. No nos hacemos responsables de las expectativas generadas por esta estimación.
+        </p>
       </div>
     </div>
   );
