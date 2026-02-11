@@ -22,7 +22,7 @@ const Index = () => {
     </a>
   </div>
   <p className="text-gray-600 text-xs">
-    © 2026 Gestión Pro Latam. Todos los derechos reservados.
+    © 2026 Captación de modelos online. Todos los derechos reservados.
   </p>
 </footer>
     </div>

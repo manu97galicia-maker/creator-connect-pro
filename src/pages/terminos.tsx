@@ -19,7 +19,7 @@ const Terminos = () => (
 
       <section>
         <h2 className="text-xl font-semibold text-white mb-2">2. El Servicio de Referido</h2>
-        <p>Gestión Pro Latam proporciona un servicio de intermediación. Una vez confirmado el pago a través de <strong>Stripe</strong>, recibirás automáticamente en tu correo electrónico el enlace de referido y las instrucciones para el registro en las plataformas correspondientes.</p>
+        <p>Captación de modelos online proporciona un servicio de intermediación. Una vez confirmado el pago a través de <strong>Stripe</strong>, recibirás automáticamente en tu correo electrónico el enlace de referido y las instrucciones para el registro en las plataformas correspondientes.</p>
       </section>
 
       <section>
