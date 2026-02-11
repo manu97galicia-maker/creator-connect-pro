@@ -36,7 +36,16 @@ const LeadForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Redirección directa al pago
+    // Trackear conversión en Meta Pixel
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'Lead');
+    }
+    // Trackear conversión en Google Ads
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'conversion', {
+        'send_to': 'AW-17912865707/SUBMIT'
+      });
+    }
     window.location.href = stripePaymentLink;
   };
 
