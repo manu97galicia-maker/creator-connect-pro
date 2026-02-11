@@ -200,7 +200,7 @@ const HeroSection = () => {
       <div className={`fixed bottom-6 left-4 right-4 md:left-auto md:right-6 md:w-80 z-50 transition-all duration-500 ${showNotification ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
         <div className="bg-card border border-primary/30 rounded-xl p-4 shadow-lg">
           <p className="text-sm font-semibold">{notification?.name} de {notification?.country}</p>
-          <p className="text-xs text-muted-foreground">se ha registrado hace un momento</p>
+          <p className="text-xs text-muted-foreground">se ha registrado hace un momento — quedan <span className="text-destructive font-bold">{spotsLeft}</span> plazas</p>
         </div>
       </div>
     </section>
