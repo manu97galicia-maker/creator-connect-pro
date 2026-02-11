@@ -1,7 +1,7 @@
 import HeroSection from "@/components/HeroSection";
 import BenefitsSection from "@/components/BenefitsSection";
 import CheckoutSection from "@/components/CheckoutSection";
-import EarningsCalculator from "@/components/EarningsCalculator";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import LegalFooter from "@/components/LegalFooter";
 
 const Index = () => {
@@ -9,7 +9,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <HeroSection />
       <BenefitsSection />
-      <EarningsCalculator />
+      <TestimonialsSection />
       <CheckoutSection />
       <LegalFooter />
       <footer className="mt-20 py-10 border-t border-zinc-900 text-center">
