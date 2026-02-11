@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { ArrowDown, Users, AlertTriangle, Calculator, Lock } from "lucide-react";
+import OnboardingQuiz from "./OnboardingQuiz";
 
 // --- COMPONENTES AUXILIARES ---
 
@@ -129,6 +130,7 @@ const MiniCalculator = () => {
 
 const HeroSection = () => {
   const [isAdult, setIsAdult] = useState(false);
+  const [quizDone, setQuizDone] = useState(false);
   const [spotsLeft, setSpotsLeft] = useState(200);
   const [notification, setNotification] = useState<{ name: string; country: string } | null>(null);
   const [showNotification, setShowNotification] = useState(false);
@@ -136,6 +138,8 @@ const HeroSection = () => {
   useEffect(() => {
     const consent = localStorage.getItem('age-consent');
     if (consent) setIsAdult(true);
+    const quiz = localStorage.getItem('quiz-done');
+    if (quiz) setQuizDone(true);
 
     const interval = setInterval(() => {
       setSpotsLeft((prev) => {
@@ -157,9 +161,15 @@ const HeroSection = () => {
     setIsAdult(true);
   };
 
+  const handleQuizComplete = () => {
+    localStorage.setItem('quiz-done', 'true');
+    setQuizDone(true);
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-12">
       {!isAdult && <AgeGate onConfirm={handleAgeConfirm} />}
+      {isAdult && !quizDone && <OnboardingQuiz onComplete={handleQuizComplete} />}
 
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted" />
       
