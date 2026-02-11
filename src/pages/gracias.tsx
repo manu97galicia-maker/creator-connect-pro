@@ -8,7 +8,7 @@ const Gracias = () => {
     if (typeof window !== "undefined" && (window as any).fbq) {
       (window as any).fbq("track", "Purchase", {
         currency: "USD",
-        value: 29.99,
+        value: 19.99,
       });
     }
     // Google Ads - Purchase conversion
