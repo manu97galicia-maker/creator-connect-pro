@@ -154,12 +154,12 @@ const HeroSection = () => {
       <div className="relative z-10 w-full px-4 max-w-4xl mx-auto">
         <div className="animate-fade-up text-center mb-8">
           <div className="inline-flex items-center gap-2 bg-destructive/10 border border-destructive/30 text-destructive px-5 py-2.5 rounded-full text-sm font-semibold mb-6">
-            <AlertTriangle className="w-4 h-4" /> ⚡ Alta demanda — Plazas limitadas
+            <AlertTriangle className="w-4 h-4" /> ⚡ Alta urgencia debido a la demanda
           </div>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight">
-            <span className="text-foreground">Buscamos a las</span>{" "}
-            <span className="text-primary">200 primeras</span>
+            <span className="text-foreground">Menos de</span>{" "}
+            <span className="text-primary">250 vacantes</span>
           </h1>
 
           <div className="flex items-center justify-center gap-3 my-6">
