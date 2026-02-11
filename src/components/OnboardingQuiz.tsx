@@ -28,6 +28,12 @@ const QUESTIONS = [
     question: "¿Estás lista para dar el primer paso hacia tu libertad financiera?",
     subtitle: "Únete a cientos de modelos que ya cambiaron su vida.",
   },
+  {
+    icon: Sparkles,
+    question: "Por solo $19.99 USD te verificamos y reservamos tu plaza con nuestras webs de contacto.",
+    subtitle: "Se amortiza con tu primera hora de trabajo. ¡Es una inversión mínima!",
+    customAnswers: ["¡Genial! 😍", "Me interesa 🤔"],
+  },
 ];
 
 const ANSWERS = ["¡Sí! 🙌", "Quizás 🤔", "No por ahora"];
@@ -105,7 +111,7 @@ const OnboardingQuiz = ({ onComplete }: { onComplete: () => void }) => {
           </p>
 
           <div className="flex flex-col gap-3">
-            {ANSWERS.map((answer, i) => (
+            {((q as any).customAnswers || ANSWERS).map((answer: string, i: number) => (
               <button
                 key={answer}
                 onClick={() => handleAnswer(answer)}

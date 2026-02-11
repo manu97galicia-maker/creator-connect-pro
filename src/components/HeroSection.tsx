@@ -59,7 +59,8 @@ const LeadForm = () => {
 
   return (
     <div id="registro" className="bg-card border border-border p-6 rounded-2xl shadow-xl">
-      <h3 className="text-xl font-bold mb-4 text-center">Registro de Nueva Plaza</h3>
+      <h3 className="text-xl font-bold mb-2 text-center">Registro de Nueva Plaza</h3>
+      <p className="text-sm text-muted-foreground text-center mb-4">Verificación + plaza reservada por solo <span className="text-primary font-bold">$19.99 USD</span></p>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input 
           name="email" 
