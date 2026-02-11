@@ -34,7 +34,7 @@ const BenefitsSection = () => {
           Conectamos creadoras con partners de plataformas de contenido para adultos a nivel internacional.
         </p>
         <p className="text-center text-xs text-muted-foreground/70 mb-12 max-w-lg mx-auto">
-          Servicio exclusivo para mayores de 18 años. Gestión Pro Latam actúa únicamente como intermediario en la captación y derivación de leads, sin responsabilidad sobre el contenido generado.
+          Servicio exclusivo para mayores de 18 años. Captación de modelos online actúa únicamente como intermediario en la captación y derivación de leads, sin responsabilidad sobre el contenido generado.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

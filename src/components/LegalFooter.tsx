@@ -11,7 +11,7 @@ const LegalFooter = () => {
             <div>
               <h3 className="font-semibold text-foreground mb-2">¿Qué hacemos exactamente?</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Gestión Pro Latam actúa como intermediaria de <span className="text-primary font-medium">referidos y generación de leads</span>. 
+                Captación de modelos online actúa como intermediaria de <span className="text-primary font-medium">referidos y generación de leads</span>. 
                 Conectamos a creadoras digitales con plataformas internacionales de contenido. 
                 La tasa de gestión de $19.99 USD cubre los costos administrativos de verificación, 
                 registro en plataformas y acompañamiento personalizado durante el proceso. 
@@ -43,7 +43,7 @@ const LegalFooter = () => {
             <strong>Aviso de Mayoría de Edad:</strong> Este servicio es exclusivo para personas mayores de 18 años. Al utilizar este sitio, confirmas tu mayoría de edad legal.
           </p>
 
-          <p>© {new Date().getFullYear()} Gestión Pro Latam. Todos los derechos reservados.</p>
+          <p>© {new Date().getFullYear()} Captación de modelos online. Todos los derechos reservados.</p>
           
           <p>
             Las cifras mostradas son estimaciones y no garantizan ingresos específicos.

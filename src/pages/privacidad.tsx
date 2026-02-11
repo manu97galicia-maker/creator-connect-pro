@@ -9,7 +9,7 @@ const Privacidad = () => (
     <div className="space-y-6 text-base leading-relaxed text-gray-300">
       <div className="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800">
         <p><strong>Última actualización:</strong> 10 de febrero de 2026</p>
-        <p className="mt-2">En <strong>Gestión Pro Latam</strong>, la seguridad de nuestras creadoras es prioridad. Esta política detalla el tratamiento de tus datos personales.</p>
+        <p className="mt-2">En <strong>Captación de modelos online</strong>, la seguridad de nuestras creadoras es prioridad. Esta política detalla el tratamiento de tus datos personales.</p>
       </div>
 
       <section>
