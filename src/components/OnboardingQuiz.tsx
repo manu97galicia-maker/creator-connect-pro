@@ -40,9 +40,21 @@ const OnboardingQuiz = ({ onComplete }: { onComplete: () => void }) => {
     const newAnswers = [...answers, answer];
     setAnswers(newAnswers);
 
+    // Track each quiz answer in Datafast
+    if (typeof window !== 'undefined' && (window as any).datafast) {
+      (window as any).datafast('quiz_answer', {
+        question: String(currentStep + 1),
+        answer: answer,
+      });
+    }
+
     if (currentStep < QUESTIONS.length - 1) {
       setTimeout(() => setCurrentStep((prev) => prev + 1), 400);
     } else {
+      // Track quiz completion
+      if (typeof window !== 'undefined' && (window as any).datafast) {
+        (window as any).datafast('quiz_complete');
+      }
       setTimeout(() => onComplete(), 600);
     }
   };
