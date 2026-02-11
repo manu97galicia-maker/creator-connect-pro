@@ -37,6 +37,13 @@ const LeadForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const emailInput = form.querySelector('input[name="email"]') as HTMLInputElement;
+    const email = emailInput?.value || '';
+    // Trackear en Datafast
+    if (typeof window !== 'undefined' && (window as any).datafast) {
+      (window as any).datafast('lead', { email });
+    }
     // Trackear conversión en Meta Pixel
     if (typeof window !== 'undefined' && (window as any).fbq) {
       (window as any).fbq('track', 'Lead');
@@ -159,6 +166,10 @@ const HeroSection = () => {
   const handleAgeConfirm = () => {
     localStorage.setItem('age-consent', 'true');
     setIsAdult(true);
+    // Track age confirmation in Datafast
+    if (typeof window !== 'undefined' && (window as any).datafast) {
+      (window as any).datafast('age_confirm', { age_group: '18+' });
+    }
   };
 
   const handleQuizComplete = () => {
@@ -184,24 +195,24 @@ const HeroSection = () => {
             <span className="text-primary">250 vacantes</span>
           </h1>
 
-          <div className="flex items-center justify-center gap-3 my-6">
+          <div className="flex items-center justify-center gap-3 my-4">
             <Users className="w-6 h-6 text-primary" />
             <span className="text-2xl md:text-3xl font-bold">
               Quedan <span className="text-destructive">{spotsLeft}</span> plazas
             </span>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 items-start mt-12">
-            <div>
-              <p className="text-lg text-left text-muted-foreground mb-6">
-                Trabajando de lunes a jueves puedes ganar hasta <span className="text-primary font-semibold">$20 USD/hora</span> en nuestra plataforma de streaming.
-              </p>
-              <MiniCalculator />
-            </div>
-            
-            <div className="sticky top-4">
-              <LeadForm />
-            </div>
+          {/* CTA Form first - most visible */}
+          <div className="max-w-md mx-auto mt-6 mb-10">
+            <LeadForm />
+          </div>
+
+          {/* Content below */}
+          <div className="max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground mb-6">
+              Trabajando de lunes a jueves puedes ganar hasta <span className="text-primary font-semibold">$20 USD/hora</span> en nuestra plataforma de streaming.
+            </p>
+            <MiniCalculator />
           </div>
         </div>
       </div>
