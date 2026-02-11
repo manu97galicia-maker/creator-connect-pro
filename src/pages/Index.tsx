@@ -12,16 +12,16 @@ const Index = () => {
       <TestimonialsSection />
       <CheckoutSection />
       <LegalFooter />
-      <footer className="mt-20 py-10 border-t border-zinc-900 text-center">
+      <footer className="mt-20 py-10 border-t border-border text-center">
   <div className="flex justify-center gap-6 mb-4">
-    <a href="/privacidad" className="text-gray-500 hover:text-purple-400 text-sm transition-colors">
+    <a href="/privacidad" className="text-muted-foreground hover:text-primary text-sm transition-colors">
       Política de Privacidad
     </a>
-    <a href="/terminos" className="text-gray-500 hover:text-purple-400 text-sm transition-colors">
+    <a href="/terminos" className="text-muted-foreground hover:text-primary text-sm transition-colors">
       Términos y Condiciones
     </a>
   </div>
-  <p className="text-gray-600 text-xs">
+  <p className="text-muted-foreground/60 text-xs">
     © 2026 Captación de modelos online. Todos los derechos reservados.
   </p>
 </footer>

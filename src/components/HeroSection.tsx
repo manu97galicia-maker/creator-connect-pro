@@ -6,24 +6,24 @@ import OnboardingQuiz from "./OnboardingQuiz";
 
 const AgeGate = ({ onConfirm }: { onConfirm: () => void }) => {
   return (
-    <div className="fixed inset-0 bg-black flex items-center justify-center z-[9999] p-4 backdrop-blur-md">
-      <div className="bg-gray-900 p-8 rounded-2xl text-center max-w-md border-2 border-primary shadow-2xl">
-        <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+    <div className="fixed inset-0 bg-background flex items-center justify-center z-[9999] p-4 backdrop-blur-md">
+      <div className="bg-card p-8 rounded-2xl text-center max-w-md border-2 border-primary/40 shadow-2xl shadow-primary/10">
+        <div className="w-16 h-16 bg-primary/15 rounded-full flex items-center justify-center mx-auto mb-4">
           <Lock className="w-8 h-8 text-primary" />
         </div>
-        <h2 className="text-3xl font-bold text-white mb-4">CONTENIDO +18</h2>
-        <p className="text-gray-300 mb-6">
+        <h2 className="text-3xl font-bold text-foreground mb-4">CONTENIDO +18</h2>
+        <p className="text-muted-foreground mb-6">
           Este sitio contiene material para adultos. Al ingresar, confirmas que tienes al menos 18 años y aceptas nuestra Política de Privacidad.
         </p>
         <button 
           onClick={onConfirm}
-          className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-bold hover:opacity-90 w-full transition-all uppercase tracking-wider"
+          className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-bold hover:opacity-90 w-full transition-all uppercase tracking-wider shadow-lg shadow-primary/20"
         >
           SÍ, SOY MAYOR DE EDAD
         </button>
         <button 
           onClick={() => window.location.href = "https://google.com"} 
-          className="mt-4 text-gray-500 underline text-sm block w-full"
+          className="mt-4 text-muted-foreground underline text-sm block w-full hover:text-foreground transition-colors"
         >
           Salir / Soy menor
         </button>
