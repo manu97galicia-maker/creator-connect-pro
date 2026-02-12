@@ -13,7 +13,7 @@ const LegalFooter = () => {
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Captación de modelos online actúa como intermediaria de <span className="text-primary font-medium">referidos y generación de leads</span>. 
                 Conectamos a creadoras digitales con plataformas internacionales de contenido. 
-                La tasa de gestión de $19.99 USD cubre los costos administrativos de verificación, 
+                La tasa de gestión de $4.99 USD cubre los costos administrativos de verificación, 
                 registro en plataformas y acompañamiento personalizado durante el proceso. 
                 No somos empleadores ni representantes legales. Las ganancias dependen exclusivamente 
                 del esfuerzo y dedicación de cada creadora.

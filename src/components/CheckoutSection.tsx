@@ -17,7 +17,7 @@ const CheckoutSection = () => {
             <span className="text-lg font-semibold text-foreground">Tasa única de gestión</span>
           </div>
 
-          <div className="text-5xl font-bold text-primary mb-2">$19.99</div>
+          <div className="text-5xl font-bold text-primary mb-2">$4.99</div>
           <p className="text-muted-foreground mb-8">USD — Pago único</p>
 
           <ul className="text-left space-y-3 mb-8 max-w-sm mx-auto">

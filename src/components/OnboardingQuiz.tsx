@@ -30,7 +30,7 @@ const QUESTIONS = [
   },
   {
     icon: Sparkles,
-    question: "Por solo $19.99 USD te verificamos y reservamos tu plaza con nuestras webs de contacto.",
+    question: "Por solo $4.99 USD te verificamos y reservamos tu plaza con nuestras webs de contacto.",
     subtitle: "Se amortiza con tu primera hora de trabajo. ¡Es una inversión mínima!",
     customAnswers: ["¡Genial! 😍", "Me interesa 🤔"],
   },
