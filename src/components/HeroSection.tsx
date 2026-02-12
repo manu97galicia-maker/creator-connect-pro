@@ -42,9 +42,9 @@ const LeadForm = () => {
     const form = e.target as HTMLFormElement;
     const emailInput = form.querySelector('input[name="email"]') as HTMLInputElement;
     const email = emailInput?.value || '';
-    // Trackear en Datafast
+    // Datafast funnel: Step 3
     if (typeof window !== 'undefined' && (window as any).datafast) {
-      (window as any).datafast('lead', { email });
+      (window as any).datafast('preparing_buy', { email });
     }
     // Trackear conversión en Meta Pixel
     if (typeof window !== 'undefined' && (window as any).fbq) {
@@ -169,15 +169,19 @@ const HeroSection = () => {
   const handleAgeConfirm = () => {
     localStorage.setItem('age-consent', 'true');
     setIsAdult(true);
-    // Track age confirmation in Datafast
+    // Datafast funnel: Step 2
     if (typeof window !== 'undefined' && (window as any).datafast) {
-      (window as any).datafast('age_confirm', { age_group: '18+' });
+      (window as any).datafast('acceptance');
     }
   };
 
   const handleQuizComplete = () => {
     localStorage.setItem('quiz-done', 'true');
     setQuizDone(true);
+    // Datafast funnel: Step 1
+    if (typeof window !== 'undefined' && (window as any).datafast) {
+      (window as any).datafast('onboarding_complete');
+    }
   };
 
   return (
