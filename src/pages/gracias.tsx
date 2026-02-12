@@ -8,7 +8,7 @@ const Gracias = () => {
     if (typeof window !== "undefined" && (window as any).fbq) {
       (window as any).fbq("track", "Purchase", {
         currency: "USD",
-        value: 19.99,
+        value: 4.99,
       });
     }
     // Google Ads - Purchase conversion
@@ -19,7 +19,7 @@ const Gracias = () => {
     }
     // Datafast funnel: Step 4
     if (typeof window !== "undefined" && (window as any).datafast) {
-      (window as any).datafast("purchased", { value: "19.99", currency: "usd" });
+      (window as any).datafast("purchased", { value: "4.99", currency: "usd" });
     }
   }, []);
 
