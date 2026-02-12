@@ -3,9 +3,9 @@ import { ArrowDown, Users, AlertTriangle, Calculator, Lock } from "lucide-react"
 
 // --- COMPONENTES AUXILIARES ---
 
-const AgeGate = ({ onConfirm }: { onConfirm: () => void }) => {
+const AgeGateModal = ({ onConfirm, onCancel }: { onConfirm: () => void; onCancel: () => void }) => {
   return (
-    <div className="fixed inset-0 bg-background/95 flex items-center justify-center z-[9999] p-4 backdrop-blur-md">
+    <div className="fixed inset-0 bg-background/80 flex items-center justify-center z-[9999] p-4 backdrop-blur-sm">
       <div className="bg-card p-6 rounded-2xl text-center max-w-sm border border-primary/30 shadow-xl">
         <Lock className="w-8 h-8 text-primary mx-auto mb-3" />
         <p className="text-muted-foreground mb-5 text-xs leading-relaxed">
@@ -17,13 +17,13 @@ const AgeGate = ({ onConfirm }: { onConfirm: () => void }) => {
           onClick={onConfirm}
           className="bg-primary text-primary-foreground px-6 py-3 rounded-full font-bold hover:opacity-90 w-full transition-all uppercase tracking-wider shadow-lg shadow-primary/20 text-sm"
         >
-          SOY MAYOR DE 18 — ENTRAR
+          CONFIRMO Y CONTINÚO
         </button>
         <button 
-          onClick={() => window.location.href = "https://google.com"} 
+          onClick={onCancel} 
           className="mt-3 text-muted-foreground underline text-xs block w-full hover:text-foreground transition-colors"
         >
-          Salir
+          Cancelar
         </button>
       </div>
     </div>
@@ -31,22 +31,29 @@ const AgeGate = ({ onConfirm }: { onConfirm: () => void }) => {
 };
 
 const LeadForm = () => {
-  const stripePaymentLink = "https://buy.stripe.com/8x24gz8wS8k0d8h2mlfYY00"; // REEMPLAZA ESTO
+  const stripePaymentLink = "https://buy.stripe.com/8x24gz8wS8k0d8h2mlfYY00";
+  const [showAgeGate, setShowAgeGate] = useState(false);
+  const [pendingEmail, setPendingEmail] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const emailInput = form.querySelector('input[name="email"]') as HTMLInputElement;
-    const email = emailInput?.value || '';
-    // Datafast funnel: Step 3
+    setPendingEmail(emailInput?.value || '');
+    setShowAgeGate(true);
+  };
+
+  const handleConfirmAge = () => {
+    // Datafast funnel
     if (typeof window !== 'undefined' && (window as any).datafast) {
-      (window as any).datafast('preparing_buy', { email });
+      (window as any).datafast('acceptance');
+      (window as any).datafast('preparing_buy', { email: pendingEmail });
     }
-    // Trackear conversión en Meta Pixel
+    // Meta Pixel
     if (typeof window !== 'undefined' && (window as any).fbq) {
       (window as any).fbq('track', 'Lead');
     }
-    // Trackear conversión en Google Ads
+    // Google Ads
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', 'conversion', {
         'send_to': 'AW-17912865707/SUBMIT'
@@ -56,28 +63,25 @@ const LeadForm = () => {
   };
 
   return (
-    <div id="registro" className="bg-card border border-border p-6 rounded-2xl shadow-xl">
-      <h3 className="text-xl font-bold mb-2 text-center">Registro de Nueva Plaza</h3>
-      <p className="text-sm text-muted-foreground text-center mb-4">Verificación + plaza reservada por solo <span className="text-primary font-bold">$4.99 USD</span></p>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <input 
-          name="email" 
-          type="email" 
-          placeholder="Tu correo electrónico..." 
-          required 
-          className="p-3 bg-muted border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-        />
-        <div className="flex items-start gap-2">
-          <input type="checkbox" required className="mt-1" id="terms" />
-          <label htmlFor="terms" className="text-[10px] text-muted-foreground leading-tight">
-            Confirmo que soy mayor de 18 años y acepto que mi correo sea compartido con socios de streaming para procesar mi acceso.
-          </label>
-        </div>
-        <button className="bg-primary text-primary-foreground font-bold py-4 rounded-xl hover:opacity-90 transition-all shadow-lg shadow-primary/20">
-          RESERVAR PLAZA Y PAGAR
-        </button>
-      </form>
-    </div>
+    <>
+      {showAgeGate && <AgeGateModal onConfirm={handleConfirmAge} onCancel={() => setShowAgeGate(false)} />}
+      <div id="registro" className="bg-card border border-border p-6 rounded-2xl shadow-xl">
+        <h3 className="text-xl font-bold mb-2 text-center">Registro de Nueva Plaza</h3>
+        <p className="text-sm text-muted-foreground text-center mb-4">Verificación + plaza reservada por solo <span className="text-primary font-bold">$4.99 USD</span></p>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <input 
+            name="email" 
+            type="email" 
+            placeholder="Tu correo electrónico..." 
+            required 
+            className="p-3 bg-muted border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+          <button className="bg-primary text-primary-foreground font-bold py-4 rounded-xl hover:opacity-90 transition-all shadow-lg shadow-primary/20">
+            RESERVAR PLAZA Y PAGAR
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 
@@ -135,15 +139,11 @@ const MiniCalculator = () => {
 // --- COMPONENTE PRINCIPAL ---
 
 const HeroSection = () => {
-  const [isAdult, setIsAdult] = useState(false);
   const [spotsLeft, setSpotsLeft] = useState(200);
   const [notification, setNotification] = useState<{ name: string; country: string } | null>(null);
   const [showNotification, setShowNotification] = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem('age-consent');
-    if (consent) setIsAdult(true);
-
     const interval = setInterval(() => {
       setSpotsLeft((prev) => {
         if (prev <= 1) return 1;
@@ -159,18 +159,8 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleAgeConfirm = () => {
-    localStorage.setItem('age-consent', 'true');
-    setIsAdult(true);
-    // Datafast funnel: Step 1 (acceptance)
-    if (typeof window !== 'undefined' && (window as any).datafast) {
-      (window as any).datafast('acceptance');
-    }
-  };
-
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-12">
-      {!isAdult && <AgeGate onConfirm={handleAgeConfirm} />}
 
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted" />
       
