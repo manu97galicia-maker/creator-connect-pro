@@ -11,21 +11,23 @@ const AgeGate = ({ onConfirm }: { onConfirm: () => void }) => {
         <div className="w-16 h-16 bg-primary/15 rounded-full flex items-center justify-center mx-auto mb-4">
           <Lock className="w-8 h-8 text-primary" />
         </div>
-        <h2 className="text-3xl font-bold text-foreground mb-4">CONTENIDO +18</h2>
-        <p className="text-muted-foreground mb-6">
-          Este sitio contiene material para adultos. Al ingresar, confirmas que tienes al menos 18 años y aceptas nuestra Política de Privacidad.
+        <h2 className="text-2xl font-bold text-foreground mb-4">Antes de continuar</h2>
+        <p className="text-muted-foreground mb-6 text-sm leading-relaxed">
+          Al continuar, confirmas que eres <span className="text-primary font-semibold">mayor de 18 años</span> y que has leído nuestra{" "}
+          <a href="/privacidad" target="_blank" className="text-primary underline underline-offset-2 hover:opacity-80">Política de Privacidad</a> y los{" "}
+          <a href="/terminos" target="_blank" className="text-primary underline underline-offset-2 hover:opacity-80">Términos y Condiciones</a>.
         </p>
         <button 
           onClick={onConfirm}
           className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-bold hover:opacity-90 w-full transition-all uppercase tracking-wider shadow-lg shadow-primary/20"
         >
-          SÍ, SOY MAYOR DE EDAD
+          CONFIRMO Y CONTINÚO
         </button>
         <button 
           onClick={() => window.location.href = "https://google.com"} 
           className="mt-4 text-muted-foreground underline text-sm block w-full hover:text-foreground transition-colors"
         >
-          Salir / Soy menor
+          Salir
         </button>
       </div>
     </div>
@@ -180,8 +182,8 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-12">
-      {!isAdult && <AgeGate onConfirm={handleAgeConfirm} />}
-      {isAdult && !quizDone && <OnboardingQuiz onComplete={handleQuizComplete} />}
+      {!quizDone && <OnboardingQuiz onComplete={handleQuizComplete} />}
+      {quizDone && !isAdult && <AgeGate onConfirm={handleAgeConfirm} />}
 
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted" />
       
