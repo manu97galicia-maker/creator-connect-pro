@@ -17,9 +17,9 @@ const Gracias = () => {
         send_to: "AW-17912865707/PURCHASE",
       });
     }
-    // Datafast - Purchase
+    // Datafast funnel: Step 4
     if (typeof window !== "undefined" && (window as any).datafast) {
-      (window as any).datafast("purchase", { value: "19.99", currency: "usd" });
+      (window as any).datafast("purchased", { value: "19.99", currency: "usd" });
     }
   }, []);
 
