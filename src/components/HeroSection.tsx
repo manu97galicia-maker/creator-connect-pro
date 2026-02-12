@@ -1,31 +1,27 @@
 import { useState, useEffect } from "react";
 import { ArrowDown, Users, AlertTriangle, Calculator, Lock } from "lucide-react";
-import OnboardingQuiz from "./OnboardingQuiz";
 
 // --- COMPONENTES AUXILIARES ---
 
 const AgeGate = ({ onConfirm }: { onConfirm: () => void }) => {
   return (
-    <div className="fixed inset-0 bg-background flex items-center justify-center z-[9999] p-4 backdrop-blur-md">
-      <div className="bg-card p-8 rounded-2xl text-center max-w-md border-2 border-primary/40 shadow-2xl shadow-primary/10">
-        <div className="w-16 h-16 bg-primary/15 rounded-full flex items-center justify-center mx-auto mb-4">
-          <Lock className="w-8 h-8 text-primary" />
-        </div>
-        <h2 className="text-2xl font-bold text-foreground mb-4">Antes de continuar</h2>
-        <p className="text-muted-foreground mb-6 text-sm leading-relaxed">
-          Al continuar, confirmas que eres <span className="text-primary font-semibold">mayor de 18 años</span> y que has leído nuestra{" "}
-          <a href="/privacidad" target="_blank" className="text-primary underline underline-offset-2 hover:opacity-80">Política de Privacidad</a> y los{" "}
-          <a href="/terminos" target="_blank" className="text-primary underline underline-offset-2 hover:opacity-80">Términos y Condiciones</a>.
+    <div className="fixed inset-0 bg-background/95 flex items-center justify-center z-[9999] p-4 backdrop-blur-md">
+      <div className="bg-card p-6 rounded-2xl text-center max-w-sm border border-primary/30 shadow-xl">
+        <Lock className="w-8 h-8 text-primary mx-auto mb-3" />
+        <p className="text-muted-foreground mb-5 text-xs leading-relaxed">
+          Al continuar confirmas ser <span className="text-primary font-semibold">mayor de 18 años</span> y aceptas la{" "}
+          <a href="/privacidad" target="_blank" className="text-primary underline underline-offset-2">Privacidad</a> y{" "}
+          <a href="/terminos" target="_blank" className="text-primary underline underline-offset-2">Términos</a>.
         </p>
         <button 
           onClick={onConfirm}
-          className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-bold hover:opacity-90 w-full transition-all uppercase tracking-wider shadow-lg shadow-primary/20"
+          className="bg-primary text-primary-foreground px-6 py-3 rounded-full font-bold hover:opacity-90 w-full transition-all uppercase tracking-wider shadow-lg shadow-primary/20 text-sm"
         >
-          CONFIRMO Y CONTINÚO
+          SOY MAYOR DE 18 — ENTRAR
         </button>
         <button 
           onClick={() => window.location.href = "https://google.com"} 
-          className="mt-4 text-muted-foreground underline text-sm block w-full hover:text-foreground transition-colors"
+          className="mt-3 text-muted-foreground underline text-xs block w-full hover:text-foreground transition-colors"
         >
           Salir
         </button>
@@ -140,7 +136,6 @@ const MiniCalculator = () => {
 
 const HeroSection = () => {
   const [isAdult, setIsAdult] = useState(false);
-  const [quizDone, setQuizDone] = useState(false);
   const [spotsLeft, setSpotsLeft] = useState(200);
   const [notification, setNotification] = useState<{ name: string; country: string } | null>(null);
   const [showNotification, setShowNotification] = useState(false);
@@ -148,8 +143,6 @@ const HeroSection = () => {
   useEffect(() => {
     const consent = localStorage.getItem('age-consent');
     if (consent) setIsAdult(true);
-    const quiz = localStorage.getItem('quiz-done');
-    if (quiz) setQuizDone(true);
 
     const interval = setInterval(() => {
       setSpotsLeft((prev) => {
@@ -169,25 +162,15 @@ const HeroSection = () => {
   const handleAgeConfirm = () => {
     localStorage.setItem('age-consent', 'true');
     setIsAdult(true);
-    // Datafast funnel: Step 2
+    // Datafast funnel: Step 1 (acceptance)
     if (typeof window !== 'undefined' && (window as any).datafast) {
       (window as any).datafast('acceptance');
     }
   };
 
-  const handleQuizComplete = () => {
-    localStorage.setItem('quiz-done', 'true');
-    setQuizDone(true);
-    // Datafast funnel: Step 1
-    if (typeof window !== 'undefined' && (window as any).datafast) {
-      (window as any).datafast('onboarding_complete');
-    }
-  };
-
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-12">
-      {!quizDone && <OnboardingQuiz onComplete={handleQuizComplete} />}
-      {quizDone && !isAdult && <AgeGate onConfirm={handleAgeConfirm} />}
+      {!isAdult && <AgeGate onConfirm={handleAgeConfirm} />}
 
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted" />
       
