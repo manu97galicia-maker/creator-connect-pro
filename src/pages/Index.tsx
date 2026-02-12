@@ -3,10 +3,12 @@ import BenefitsSection from "@/components/BenefitsSection";
 import CheckoutSection from "@/components/CheckoutSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import LegalFooter from "@/components/LegalFooter";
+import ExitIntentPopup from "@/components/ExitIntentPopup";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <ExitIntentPopup />
       <HeroSection />
       <BenefitsSection />
       <TestimonialsSection />
