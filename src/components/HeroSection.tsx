@@ -80,6 +80,11 @@ const LeadForm = () => {
             RESERVAR PLAZA Y PAGAR
           </button>
         </form>
+        <p className="text-[10px] text-muted-foreground text-center mt-3">
+          <a href="/privacidad" target="_blank" className="underline underline-offset-2 hover:text-foreground transition-colors">Privacidad</a>
+          {" · "}
+          <a href="/terminos" target="_blank" className="underline underline-offset-2 hover:text-foreground transition-colors">Términos</a>
+        </p>
       </div>
     </>
   );
