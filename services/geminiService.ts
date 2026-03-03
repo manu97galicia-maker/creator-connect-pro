@@ -58,7 +58,7 @@ export async function generateTryOnImage(
     parts.push({ text: promptBase });
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash-exp',
+      model: 'gemini-3.1-flash-image-preview',
       contents: { parts },
       config: {
         responseModalities: ["TEXT", "IMAGE"],
@@ -95,7 +95,7 @@ export async function generateTryOnImage(
 export function createFashionChat(history: any[]): Chat {
   const ai = new GoogleGenAI({ apiKey: API_KEY });
   return ai.chats.create({
-    model: 'gemini-2.0-flash',
+    model: 'gemini-2.5-flash',
     config: { systemInstruction: SYSTEM_INSTRUCTION },
     history,
   });
