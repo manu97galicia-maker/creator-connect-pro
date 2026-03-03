@@ -6,31 +6,56 @@ import {
   Target,
   Fingerprint,
   Shirt,
-  Zap,
-  ShieldCheck,
+  Camera,
+  Layers,
+  Palette,
 } from 'lucide-react';
 
 const FEATURES = [
   {
     icon: Target,
     title: 'Preservación Total',
-    desc: 'Tus pantalones, calzado y fondo original se mantienen intactos. Solo cambiamos lo que pidas.',
+    desc: 'Tu look original se mantiene intacto. Solo transformamos lo que elijas.',
     color: 'text-indigo-400',
     bg: 'bg-indigo-500/10',
   },
   {
     icon: Fingerprint,
-    title: 'Mapeo Facial Real',
-    desc: 'Agalaz integra tu identidad sobre tu cuerpo real, respetando tu fisonomía y cuello.',
+    title: 'Tu Imagen, Tu Estilo',
+    desc: 'Agalaz respeta tu fisonomía real. Cada prenda se adapta a ti, no al revés.',
     color: 'text-emerald-400',
     bg: 'bg-emerald-500/10',
   },
   {
+    icon: Palette,
+    title: 'Color & Tejido',
+    desc: 'Capturamos la esencia de cada prenda — color, textura, caída — y la fusionamos con tu silueta.',
+    color: 'text-rose-400',
+    bg: 'bg-rose-500/10',
+  },
+];
+
+const STEPS = [
+  {
+    num: '01',
+    icon: Camera,
+    title: 'Tu Selfie',
+    desc: 'Una foto de tu rostro para que el resultado sea 100% tú.',
+    accent: 'from-indigo-500 to-violet-500',
+  },
+  {
+    num: '02',
+    icon: Layers,
+    title: 'Tu Outfit Actual',
+    desc: 'Foto de cuerpo completo con tu look. Preservamos todo excepto la prenda que quieras cambiar.',
+    accent: 'from-emerald-500 to-teal-500',
+  },
+  {
+    num: '03',
     icon: Shirt,
-    title: 'Color & Estilo',
-    desc: 'Extraemos el ADN de la prenda nueva y lo adaptamos a tu silueta sin deformaciones.',
-    color: 'text-indigo-400',
-    bg: 'bg-indigo-500/10',
+    title: 'La Prenda Deseada',
+    desc: 'Sube la prenda que te gusta de cualquier tienda. Nosotros la ponemos sobre ti.',
+    accent: 'from-rose-500 to-pink-500',
   },
 ];
 
@@ -59,7 +84,7 @@ export default function HomePage() {
           <div className="flex items-center gap-2 px-4 py-2 bg-indigo-600/20 rounded-full w-fit border border-indigo-500/20 mb-8">
             <Sparkles size={12} className="text-indigo-400 fill-indigo-400" />
             <span className="text-[10px] font-black uppercase tracking-widest text-indigo-400">
-              Virtual Try-On con IA
+              Probador Virtual con IA
             </span>
           </div>
 
@@ -72,8 +97,8 @@ export default function HomePage() {
           </h1>
 
           <p className="text-lg text-white/50 font-medium leading-relaxed mt-8 max-w-xl">
-            Sube tu foto, elige cualquier prenda y ve cómo te queda al instante.
-            IA que respeta tu cuerpo real.
+            Sube tu foto, elige cualquier prenda de cualquier tienda y ve cómo te queda al instante.
+            Tu cuerpo real, tu nuevo look.
           </p>
 
           <div className="flex items-center gap-4 mt-8">
@@ -97,7 +122,7 @@ export default function HomePage() {
               className="flex items-center justify-center gap-3 px-10 py-5 bg-white text-black font-black uppercase tracking-widest text-xs rounded-[2rem] hover:bg-white/90 transition-colors"
             >
               <Sparkles size={18} />
-              Probar Ahora Gratis
+              Probar Ahora
             </Link>
             <Link
               href="/onboarding"
@@ -114,10 +139,10 @@ export default function HomePage() {
       <section className="max-w-6xl mx-auto px-6 pb-32">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight">
-            Precisión <span className="text-indigo-400 italic">Quirúrgica</span>
+            Moda que se <span className="text-indigo-400 italic">Adapta a Ti</span>
           </h2>
           <p className="text-white/40 mt-4 max-w-lg mx-auto">
-            Motor de componentes V7.0 — cada píxel preservado, cada prenda respetada.
+            Tecnología de composición editorial que respeta cada detalle de tu imagen.
           </p>
         </div>
 
@@ -143,49 +168,42 @@ export default function HomePage() {
       <section className="max-w-6xl mx-auto px-6 pb-32">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight">
-            3 Fotos. <span className="text-indigo-400 italic">1 Render.</span>
+            3 Pasos. <span className="text-indigo-400 italic">Tu Nuevo Look.</span>
           </h2>
+          <p className="text-white/40 mt-4 max-w-md mx-auto">
+            Tan fácil como hacerte un selfie.
+          </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {[
-            { step: '01', icon: Fingerprint, label: 'ID Rostro', desc: 'Sube una foto de tu cara para el mapeo facial.' },
-            { step: '02', icon: ShieldCheck, label: 'Foto Base', desc: 'Una foto de cuerpo completo — preservamos todo excepto la prenda superior.' },
-            { step: '03', icon: Shirt, label: 'Prenda Nueva', desc: 'Elige la prenda que quieres probar — extraemos su color y estilo.' },
-          ].map((item, i) => (
-            <div key={i} className="text-center">
-              <div className="text-6xl font-black text-white/5 mb-4">{item.step}</div>
-              <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <item.icon size={28} className="text-white/40" />
+          {STEPS.map((item, i) => (
+            <div key={i} className="relative group">
+              <div className="p-8 rounded-[2rem] bg-white/[0.02] border border-white/[0.06] hover:border-white/15 transition-all">
+                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.accent} flex items-center justify-center mb-6 shadow-lg`}>
+                  <item.icon size={24} className="text-white" />
+                </div>
+                <div className="flex items-baseline gap-3 mb-3">
+                  <span className="text-xs font-black text-white/20 tracking-widest">{item.num}</span>
+                  <h3 className="text-xl font-black text-white">{item.title}</h3>
+                </div>
+                <p className="text-white/40 text-sm leading-relaxed">{item.desc}</p>
               </div>
-              <h3 className="text-lg font-black text-white mb-2">{item.label}</h3>
-              <p className="text-white/40 text-sm">{item.desc}</p>
+              {i < 2 && (
+                <div className="hidden md:flex absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
+                  <ArrowRight size={16} className="text-white/10" />
+                </div>
+              )}
             </div>
           ))}
         </div>
-      </section>
 
-      {/* CTA */}
-      <section className="max-w-6xl mx-auto px-6 pb-20">
-        <div className="bg-gradient-to-br from-indigo-600/20 to-indigo-600/5 border border-indigo-500/20 rounded-[2.5rem] p-12 md:p-16 text-center">
-          <div className="flex items-center justify-center gap-2 mb-6">
-            <Zap size={16} className="text-indigo-400 fill-indigo-400" />
-            <span className="text-xs font-black uppercase tracking-widest text-indigo-400">
-              Comienza Gratis
-            </span>
-          </div>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
-            Tu Estilo, <span className="italic text-indigo-400">Preservado.</span>
-          </h2>
-          <p className="text-white/40 mb-10 max-w-md mx-auto">
-            10 renders gratuitos. Sin tarjeta de crédito. Sin compromisos.
-          </p>
+        <div className="text-center mt-16">
           <Link
             href="/try-on"
             className="inline-flex items-center gap-3 px-12 py-5 bg-white text-black font-black uppercase tracking-widest text-xs rounded-[2rem] hover:bg-white/90 transition-colors"
           >
             <Sparkles size={18} />
-            Probar Ahora
+            Probarlo Ahora
           </Link>
         </div>
       </section>
@@ -197,10 +215,10 @@ export default function HomePage() {
             <div className="w-8 h-8 bg-white rounded-xl flex items-center justify-center">
               <span className="text-black font-bold italic text-sm">A</span>
             </div>
-            <span className="font-black text-white/60 text-sm">Agalaz Fashion AI</span>
+            <span className="font-black text-white/60 text-sm">Agalaz</span>
           </div>
           <p className="text-white/20 text-xs">
-            &copy; 2025 Agalaz. Motor de Precisión V7.0
+            &copy; 2025 Agalaz. Probador virtual con IA.
           </p>
         </div>
       </footer>
