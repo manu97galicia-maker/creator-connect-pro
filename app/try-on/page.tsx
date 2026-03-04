@@ -38,9 +38,33 @@ const IMAGE_KEYWORDS = [
   'change', 'put', 'adjust', 'try', 'garment', 'style', 'sleeve', 'body', 'realistic',
 ];
 
+function compressChatImage(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      let { width, height } = img;
+      const MAX = 1024;
+      if (width > MAX || height > MAX) {
+        const ratio = Math.min(MAX / width, MAX / height);
+        width = Math.round(width * ratio);
+        height = Math.round(height * ratio);
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d')!;
+      ctx.drawImage(img, 0, 0, width, height);
+      resolve(canvas.toDataURL('image/jpeg', 0.7).split(',')[1]);
+    };
+    img.onerror = () => reject(new Error('Error loading image'));
+    img.src = URL.createObjectURL(file);
+  });
+}
+
 export default function TryOnPage() {
   const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
+  const chatFileRef = useRef<HTMLInputElement>(null);
   const { t } = useLanguage();
 
   const [user, setUser] = useState<AppUser | null>(null);
@@ -87,7 +111,7 @@ export default function TryOnPage() {
   };
 
   const handleStartAnalysis = async () => {
-    if (!faceImage || !bodyImage || !clothingImage) {
+    if (!faceImage || !bodyImage) {
       setError(t.tryOn.errorMissingPhotos);
       return;
     }
@@ -191,8 +215,45 @@ export default function TryOnPage() {
     }
   };
 
+  const handleChatGarment = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const base64 = await compressChatImage(file);
+      setClothingImage(base64);
+      setMessages((prev) => [...prev, { role: Role.USER, text: t.tryOn.newGarmentAttached }]);
+      setIsGeneratingImage(true);
+      setError(null);
+
+      const lastImage = [...messages].reverse().find((m) => m.image)?.image;
+      const res = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          faceImage,
+          bodyImage,
+          clothingImage: base64,
+          lastRenderedImage: lastImage,
+        }),
+      });
+      const data = await res.json();
+      if (data.image) {
+        setMessages((prev) => [...prev, { role: Role.MODEL, text: t.tryOn.resultSuccess, image: data.image }]);
+        const newCount = incrementRenderCount();
+        setRenderCount(newCount);
+      } else {
+        setError(data.error || t.tryOn.errorPrecision);
+      }
+    } catch {
+      setError(t.tryOn.errorComponent);
+    } finally {
+      setIsGeneratingImage(false);
+      e.target.value = '';
+    }
+  };
+
   const isLoading = isAnalyzing || isGeneratingImage;
-  const canRender = faceImage && bodyImage && clothingImage && !isLoading;
+  const canRender = faceImage && bodyImage && !isLoading;
   const remaining = getRemainingRenders();
 
   return (
@@ -283,6 +344,7 @@ export default function TryOnPage() {
                     image={faceImage}
                     onImageSelect={setFaceImage}
                     icon={<Fingerprint size={20} className="text-slate-400" />}
+                    hint={t.tryOn.hintFace}
                   />
                   <ImageUploader
                     label={t.tryOn.labelBody}
@@ -290,6 +352,7 @@ export default function TryOnPage() {
                     image={bodyImage}
                     onImageSelect={setBodyImage}
                     icon={<UserSquare2 size={20} className="text-slate-400" />}
+                    hint={t.tryOn.hintBody}
                   />
                 </div>
                 <ImageUploader
@@ -298,6 +361,7 @@ export default function TryOnPage() {
                   image={clothingImage}
                   onImageSelect={setClothingImage}
                   icon={<Shirt size={20} className="text-slate-400" />}
+                  hint={t.tryOn.hintClothing}
                 />
               </div>
 
@@ -414,7 +478,18 @@ export default function TryOnPage() {
         {messages.length > 0 && (
           <div className="fixed bottom-0 left-0 right-0 p-4 pb-6 bg-slate-50/90 backdrop-blur-sm z-20">
             <div className="max-w-lg mx-auto flex items-center gap-2 p-2 bg-white/90 rounded-[2.5rem] border border-slate-200 shadow-lg">
-              <button className="p-3 bg-slate-50 rounded-full hover:bg-slate-100 transition-colors cursor-pointer">
+              <input
+                ref={chatFileRef}
+                type="file"
+                accept="image/*"
+                onChange={handleChatGarment}
+                className="hidden"
+              />
+              <button
+                onClick={() => chatFileRef.current?.click()}
+                className="p-3 bg-slate-50 rounded-full hover:bg-slate-100 transition-colors cursor-pointer"
+                title={t.tryOn.chatAttach}
+              >
                 <Paperclip size={20} className="text-slate-400" />
               </button>
               <input

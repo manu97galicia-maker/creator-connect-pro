@@ -36,9 +36,10 @@ interface ImageUploaderProps {
   image: string | null;
   onImageSelect: (base64: string | null) => void;
   icon?: React.ReactNode;
+  hint?: string;
 }
 
-export function ImageUploader({ label, type, image, onImageSelect, icon }: ImageUploaderProps) {
+export function ImageUploader({ label, type, image, onImageSelect, icon, hint }: ImageUploaderProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const { t } = useLanguage();
 
@@ -93,6 +94,11 @@ export function ImageUploader({ label, type, image, onImageSelect, icon }: Image
             <span className="text-[10px] font-black uppercase tracking-tight text-slate-500">
               {type === 'user' ? t.uploader.uploadPhoto : t.uploader.uploadGarment}
             </span>
+            {hint && (
+              <span className="text-[9px] text-slate-400 font-medium mt-1 px-2 text-center leading-tight">
+                {hint}
+              </span>
+            )}
           </button>
         )}
       </div>
